@@ -27,15 +27,6 @@ or print them.
 
 > The output contains your secret keys. Treat it like a password.
 
-## Deploy to GitHub Pages
-
-`.github/workflows/pages.yml` runs the tests and publishes the app to GitHub Pages on every
-push to `main` (it can also be run by hand from the **Actions** tab).
-
-One-time setup: in the repository, go to **Settings → Pages** and set
-**Build and deployment → Source** to **GitHub Actions**. After the next run the app is live at
-`https://<owner>.github.io/<repo>/`.
-
 ## Files
 
 - `index.html`, `style.css`, `app.js` — the UI
