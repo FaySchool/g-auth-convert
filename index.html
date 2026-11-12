@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Google Authenticator Export Converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Google Authenticator Export Converter</h1>
+      <p class="lede">
+        Turn a Google Authenticator <em>Transfer accounts</em> export into standard
+        <code>otpauth://</code> URIs and one QR code per account, ready to import into any
+        other authenticator or password manager.
+      </p>
+      <p class="privacy">
+        Everything runs in this browser tab. Nothing is uploaded, stored or logged &mdash;
+        the page is blocked from making network requests at all.
+      </p>
+    </header>
+
+    <section class="panel" aria-labelledby="input-heading">
+      <h2 id="input-heading">1. Add your export</h2>
+      <p class="hint">
+        In Google Authenticator: menu &rarr; <strong>Transfer accounts</strong> &rarr;
+        <strong>Export accounts</strong>. If the export spans several QR codes, add each one.
+      </p>
+
+      <div id="drop" class="drop" tabindex="0" role="button" aria-describedby="drop-help">
+        <strong>Choose QR code images</strong>
+        <span id="drop-help">or drop them here, or paste a screenshot (Ctrl/⌘+V)</span>
+        <input id="file" type="file" accept="image/*" multiple hidden>
+      </div>
+
+      <div class="row">
+        <button id="camera-btn" type="button">Scan with camera</button>
+      </div>
+      <div id="camera" class="camera" hidden>
+        <video id="video" playsinline muted></video>
+        <button id="camera-stop" type="button">Stop camera</button>
+      </div>
+
+      <label for="uri">Or paste the export URI</label>
+      <textarea id="uri" rows="3" spellcheck="false" autocomplete="off" autocapitalize="off"
+                placeholder="otpauth-migration://offline?data=…"></textarea>
+      <div class="row">
+        <button id="convert" type="button" class="primary">Convert</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="results" class="panel" aria-labelledby="results-heading" hidden>
+      <div class="results-head">
+        <h2 id="results-heading">2. Your accounts</h2>
+        <div class="row">
+          <button id="copy-all" type="button">Copy all URIs</button>
+          <button id="download-all" type="button">Download .txt</button>
+          <button id="print" type="button">Print</button>
+          <button id="clear" type="button" class="danger">Clear</button>
+        </div>
+      </div>
+      <p class="warning">
+        These QR codes and URIs contain your secret keys. Anyone who sees them can generate
+        your codes &mdash; keep them off shared screens and don't store them unencrypted.
+      </p>
+      <ul id="accounts" class="accounts"></ul>
+    </section>
+
+    <footer>
+      <p>Works offline. QR decoding by jsQR, QR generation by qrcode-generator.</p>
+    </footer>
+  </main>
+
+  <script src="vendor/jsQR.js"></script>
+  <script src="vendor/qrcode.js"></script>
+  <script src="migration.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
