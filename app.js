@@ -306,7 +306,13 @@
   $('camera-btn').addEventListener('click', startCamera);
   $('camera-stop').addEventListener('click', function () { stopCamera(); setStatus(''); });
 
-  $('copy-all').addEventListener('click', function () { copyText(allUris(), $('copy-all')); });
+  $('copy-all').addEventListener('click', function () {
+    // Clipboard history (Windows Win+V, clipboard managers) and cross-device sync can keep a copy.
+    var ok = window.confirm('This copies the secret keys of all ' + accounts.length + ' account' +
+      (accounts.length === 1 ? '' : 's') + ' to the clipboard. Clipboard history and syncing ' +
+      '(such as Windows Win+V or Apple Universal Clipboard) may keep a copy after you paste.\n\nCopy anyway?');
+    if (ok) copyText(allUris(), $('copy-all'));
+  });
   $('download-all').addEventListener('click', function () {
     var url = URL.createObjectURL(new Blob([allUris()], { type: 'text/plain' }));
     download(url, 'otpauth-uris.txt');

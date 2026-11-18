@@ -6,6 +6,7 @@
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <script src="frame-guard.js"></script>
   <title>Google Authenticator Export Converter</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -68,6 +69,8 @@
       <p class="warning">
         These QR codes and URIs contain your secret keys. Anyone who sees them can generate
         your codes &mdash; keep them off shared screens and don't store them unencrypted.
+        Copied URIs can stay in clipboard history or sync to your other devices, so prefer
+        scanning the QR codes into your new app.
       </p>
       <ul id="accounts" class="accounts"></ul>
     </section>
